@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
   },
   flexContainerItem: {
     flexDirection: 'column',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
   },
 });
 
@@ -18,7 +19,7 @@ const DataItem = ({ text, value }) => {
   if (value >= 1000) {
     return (
       <View style={styles.flexContainerItem}>
-        <Text fontWeight='bold' >{Math.floor(value / 100) / 10 + 'k'}</Text>
+        <Text style={styles.text} fontWeight='bold' >{Math.floor(value / 100) / 10 + 'k'}</Text>
         <Text>{text}</Text>
       </View>
     );
