@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Constants from 'expo-constants';
-import Theme from '../theme';
+import theme from '../theme';
 import AppBarTab from './AppBarTab';
 
 const styles = StyleSheet.create({
@@ -9,8 +9,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: Theme.appBar.background,
-    paddingBottom: Constants.statusBarHeight / 2,
+    backgroundColor: theme.appBar.background,
   },
 });
 

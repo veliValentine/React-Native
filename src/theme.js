@@ -20,6 +20,12 @@ const theme = {
   },
   appBarTab: {
     textColor: 'white'
+  },
+  main: {
+    background: '#e1e4e8'
+  },
+  repositoryListItem: {
+    background: 'white'
   }
 };
 

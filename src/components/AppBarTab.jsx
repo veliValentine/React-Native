@@ -1,7 +1,15 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import Text from './Text';
-import Theme from '../theme';
+import theme from '../theme';
 
-const AppBarTab = ({ children }) => <Text style={{ color: Theme.appBarTab.textColor }}>{children}</Text>;
+const styles = StyleSheet.create({
+  text: {
+    color: theme.appBarTab.textColor,
+    padding: 10
+  }
+});
+
+const AppBarTab = ({ children }) => <Text fontWeight='bold' style={styles.text}>{children}</Text>;
 
 export default AppBarTab;
