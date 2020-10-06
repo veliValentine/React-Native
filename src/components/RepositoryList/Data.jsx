@@ -15,29 +15,24 @@ const styles = StyleSheet.create({
   },
 });
 
-const DataItem = ({ text, value }) => {
+const DataItem = ({ value, children }) => {
   if (value >= 1000) {
-    return (
-      <View style={styles.flexContainerItem}>
-        <Text style={styles.text} fontWeight='bold' >{Math.floor(value / 100) / 10 + 'k'}</Text>
-        <Text>{text}</Text>
-      </View>
-    );
+    value = Math.floor(value / 100) / 10 + 'k';
   }
   return (
     <View style={styles.flexContainerItem}>
       <Text fontWeight='bold' >{value}</Text>
-      <Text>{text}</Text>
+      <Text>{children}</Text>
     </View>
   );
 };
 
 const Data = ({ stars, forks, reviews, rating }) => (
   <View style={styles.flexContainerItems}>
-    <DataItem text={'Stars'} value={stars} />
-    <DataItem text={'Forks'} value={forks} />
-    <DataItem text={'Reviews'} value={reviews} />
-    <DataItem text={'Rating'} value={rating} />
+    <DataItem value={stars}>Stars</DataItem>
+    <DataItem value={forks} >Forks</DataItem>
+    <DataItem value={reviews} >Reviews</DataItem>
+    <DataItem value={rating} >Rating</DataItem>
   </View>
 );
 

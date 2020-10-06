@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
 import AppBarTab from './AppBarTab';
+import { Link } from 'react-router-native';
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -10,6 +11,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.appBar.background,
+  },
+  flexContainerTabs: {
+    flexDirection: 'row',
   },
 });
 
@@ -22,8 +26,13 @@ const AppBar = () => {
   return (
     <View style={styles.flexContainer}>
       <TouchableWithoutFeedback onPress={handleClick}>
-        <View>
-          <AppBarTab>Repositories</AppBarTab>
+        <View style={styles.flexContainerTabs}>
+          <Link to='/' component={TouchableOpacity}>
+            <AppBarTab>Repositories</AppBarTab>
+          </Link>
+          <Link to='SingIn' component={TouchableOpacity}>
+            <AppBarTab>Sing in</AppBarTab>
+          </Link>
         </View>
       </TouchableWithoutFeedback>
     </View>
