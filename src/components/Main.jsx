@@ -23,9 +23,10 @@ const Main = () => {
         <Route path='/' exact>
           <RepositoryList />
         </Route>
-        <Route path='/SingIn'>
+        <Route path='/singIn'>
           <SignIn />
         </Route>
+        <Redirect to='/' />
       </Switch>
     </View>
   );

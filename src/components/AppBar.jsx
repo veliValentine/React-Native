@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native';
+import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
+
 import theme from '../theme';
 import AppBarTab from './AppBarTab';
-import { Link } from 'react-router-native';
 
 const styles = StyleSheet.create({
   flexContainer: {
@@ -19,22 +20,20 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
 
-  const handleClick = () => {
-    console.log('click');
-  };
-
   return (
     <View style={styles.flexContainer}>
-      <TouchableWithoutFeedback onPress={handleClick}>
-        <View style={styles.flexContainerTabs}>
-          <Link to='/' component={TouchableOpacity}>
-            <AppBarTab>Repositories</AppBarTab>
-          </Link>
-          <Link to='SingIn' component={TouchableOpacity}>
-            <AppBarTab>Sing in</AppBarTab>
-          </Link>
-        </View>
-      </TouchableWithoutFeedback>
+      <ScrollView horizontal style={styles.flexContainerTabs}>
+        <TouchableWithoutFeedback>
+          <View style={styles.flexContainerTabs}>
+            <Link to='/' component={TouchableOpacity}>
+              <AppBarTab>Repositories</AppBarTab>
+            </Link>
+            <Link to='/singIn' component={TouchableOpacity}>
+              <AppBarTab>Sing in</AppBarTab>
+            </Link>
+          </View>
+        </TouchableWithoutFeedback>
+      </ScrollView>
     </View>
   );
 };
