@@ -3,13 +3,13 @@ import { View, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollVie
 import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 
-import theme from '../theme';
+import theme from '../../theme';
 import AppBarTab from './AppBarTab';
 
 const styles = StyleSheet.create({
   flexContainer: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
+    //flexDirection: 'column',
+    //justifyContent: 'flex-start',
     paddingTop: Constants.statusBarHeight,
     backgroundColor: theme.appBar.background,
   },
@@ -30,6 +30,10 @@ const AppBar = () => {
             </Link>
             <Link to='/singIn' component={TouchableOpacity}>
               <AppBarTab>Sing in</AppBarTab>
+            </Link>
+            
+            <Link to='/material' component={TouchableOpacity}>
+              <AppBarTab>Material</AppBarTab>
             </Link>
           </View>
         </TouchableWithoutFeedback>
