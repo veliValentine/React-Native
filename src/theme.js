@@ -26,7 +26,10 @@ const theme = {
   },
   repositoryListItem: {
     background: 'white'
-  }
+  },
+  error: {
+    color: '#d73a4a'
+  },
 };
 
 export default theme;
