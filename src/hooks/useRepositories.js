@@ -5,12 +5,14 @@ import { GET_REPOSITORIES } from '../graphql/queries';
 
 const useRepositories = () => {
   const [repositories, setRepositories] = useState();
+
   const { data, loading } = useQuery(GET_REPOSITORIES, {
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network'
   });
 
   const fetchRepositories = () => {
-    if(data) {
+    console.log('fetch repositories');
+    if (data) {
       setRepositories(data.repositories);
     }
   };
@@ -23,22 +25,3 @@ const useRepositories = () => {
 };
 
 export default useRepositories;
-
-/*
-const fetchRepositories = async () => {
-    setLoading(true);
-
-    const url = false  // eslint-disable-line no-constant-condition
-      ? 'http://87.92.18.236:5000/api/repositories'
-      : 'http://192.168.1.3:5000/api/repositories';
-    const response = await fetch(url);
-    const json = await response.json();
-
-    setLoading(false);
-    setRepositories(json);
-
-    useEffect(() => {
-    fetchRepositories();
-  }, []);
-  };
-*/
