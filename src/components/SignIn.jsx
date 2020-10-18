@@ -3,12 +3,14 @@ import { TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
+import useSingIn from '../hooks/useSingIn';
+
 import FormikTextInput from './FormikTextInput';
 import Text from './Text';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     padding: 10,
     flexGrow: 0.1,
     justifyContent: 'space-evenly',
@@ -68,8 +70,17 @@ const SignInForm = ({ onSubmit }) => {
 };
 
 const SignIn = () => {
-  const onSubmit = (values) => {
-    console.log('Login values:', values.username, values.password);
+  const [singIn] = useSingIn();
+
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+
+    try {
+      const { data } = await singIn({ username, password });
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
