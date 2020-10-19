@@ -5,15 +5,20 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 import Main from './src/components/Main';
 import createApolloClient from './src/utils/apolloClient';
+import AuthStorage from './src/utils/authStorage';
+import AuthStorageContext from './src/contexts/AuthStorageContext';
 
-const apolloClient = createApolloClient();
-// https://fullstackopen.com/en/part10/communicating_with_server#storing-data-in-the-users-device
+const authStorage = new AuthStorage();
+const apolloClient = createApolloClient(authStorage);
+
 const App = () => {
   //console.log(Constants.manifest);
   return (
     <NativeRouter>
       <ApolloProvider client={apolloClient}>
-        <Main />
+        <AuthStorageContext.Provider value={authStorage}>
+          <Main />
+        </AuthStorageContext.Provider>
       </ApolloProvider>
     </NativeRouter>
   );
