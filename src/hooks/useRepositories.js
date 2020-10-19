@@ -11,7 +11,6 @@ const useRepositories = () => {
   });
 
   const fetchRepositories = () => {
-    console.log('fetch repositories');
     if (data) {
       setRepositories(data.repositories);
     }

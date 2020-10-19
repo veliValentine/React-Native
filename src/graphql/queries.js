@@ -15,14 +15,11 @@ export const GET_REPOSITORIES = gql`
 ${REPOSITORY_DETAIL}
 `;
 
-/*
-query{
-  repositories{
-    edges{
-      node{
-      	...RepositoryDetail
-      }
-    }
+export const AUTHORIZED_USER = gql`
+{
+  authorizedUser {
+    id
+    username
   }
 }
-*/
+`;

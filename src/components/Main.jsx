@@ -7,6 +7,7 @@ import AppBar from './AppBar';
 import theme from '../theme';
 import SignIn from './SignIn';
 import MaterialMain from './MaterialExamples';
+import SingOut from './SingOut';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,7 +18,6 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
-
   return (
     <View style={styles.container}>
       <AppBar />
@@ -27,6 +27,9 @@ const Main = () => {
         </Route>
         <Route path='/singIn'>
           <SignIn />
+        </Route>
+        <Route path='/singOut'>
+          <SingOut />
         </Route>
         <Route path='/material'>
           <MaterialMain />

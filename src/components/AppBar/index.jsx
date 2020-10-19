@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native';
-import { Link } from 'react-router-native';
+import useAuthorize from '../../hooks/useAuthorize';
 import Constants from 'expo-constants';
 
+import { Link } from 'react-router-native';
 import theme from '../../theme';
 import AppBarTab from './AppBarTab';
 
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const { authObj } = useAuthorize();
 
   return (
     <View style={styles.flexContainer}>
@@ -28,17 +30,22 @@ const AppBar = () => {
             <Link to='/' component={TouchableOpacity}>
               <AppBarTab>Repositories</AppBarTab>
             </Link>
-            <Link to='/singIn' component={TouchableOpacity}>
-              <AppBarTab>Sing in</AppBarTab>
-            </Link>
-            
+            {authObj ?
+              < Link to='/singOut' component={TouchableOpacity}>
+                <AppBarTab>Sing out</AppBarTab>
+              </Link>
+              :
+              < Link to='/singIn' component={TouchableOpacity}>
+                <AppBarTab>Sing in</AppBarTab>
+              </Link>
+            }
             <Link to='/material' component={TouchableOpacity}>
               <AppBarTab>Material</AppBarTab>
             </Link>
           </View>
         </TouchableWithoutFeedback>
       </ScrollView>
-    </View>
+    </View >
   );
 };
 

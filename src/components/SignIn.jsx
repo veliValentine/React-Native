@@ -76,13 +76,12 @@ const SignIn = () => {
 
   const onSubmit = async (values) => {
     const { username, password } = values;
-
     try {
       const { data } = await singIn({ username, password });
       console.log(data);
       history.push('/');
     } catch (e) {
-      if(e instanceof Error) {
+      if (e instanceof Error) {
         console.log(e.message);
       }
     }
