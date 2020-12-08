@@ -47,7 +47,7 @@ const validationSchema = yup.object().shape({
     .required('Password is required'),
 });
 
-const SignInForm = ({ onSubmit }) => {
+export const SignInForm = ({ onSubmit }) => {
   return (
     <View style={styles.container}>
       <FormikTextInput
@@ -55,6 +55,7 @@ const SignInForm = ({ onSubmit }) => {
         name='username'
         placeholder='Username'
         autoCapitalize='none'
+        testID="usernameInput"
       />
       <FormikTextInput
         style={styles.textInput}
@@ -62,8 +63,13 @@ const SignInForm = ({ onSubmit }) => {
         placeholder='Password'
         secureTextEntry
         autoCapitalize='none'
+        testID="passwordInput"
       />
-      <TouchableWithoutFeedback style={styles.buttonContainer} onPress={onSubmit}>
+      <TouchableWithoutFeedback
+        style={styles.buttonContainer}
+        onPress={onSubmit}
+        testID="submitButton"
+      >
         <Text style={styles.button}>Sing in</Text>
       </TouchableWithoutFeedback>
     </View>
