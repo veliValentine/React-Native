@@ -1,6 +1,6 @@
-const { useQuery } = require("@apollo/react-hooks");
-const { useState, useEffect } = require("react");
-const { AUTHORIZED_USER } = require("../graphql/queries");
+import { useQuery } from '@apollo/react-hooks';
+import { useState, useEffect } from 'react';
+import { AUTHORIZED_USER } from '../graphql/queries';
 
 const useAuthorize = () => {
   const [authObj, setAuthObj] = useState();

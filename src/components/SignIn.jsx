@@ -83,6 +83,8 @@ const SignIn = () => {
     } catch (e) {
       if (e instanceof Error) {
         console.log(e.message);
+      } else {
+        throw e;
       }
     }
   };

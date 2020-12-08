@@ -7,7 +7,10 @@ const useRepositories = () => {
   const [repositories, setRepositories] = useState();
 
   const { data, loading } = useQuery(GET_REPOSITORIES, {
-    fetchPolicy: 'cache-and-network'
+    fetchPolicy: 'cache-and-network',
+    onError: (e) => {
+      console.error(e);
+    }
   });
 
   const fetchRepositories = () => {

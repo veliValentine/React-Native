@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
 const RepositoryListItem = ({ item }) => {
   const { description, forksCount, fullName, language, ratingAverage, reviewCount, stargazersCount, ownerAvatarUrl } = item;
   return (
-    <View style={styles.container} >
+    <View style={styles.container} testID="repositoryListItem">
       <GeneralInformation description={description} fullName={fullName} language={language} picURL={ownerAvatarUrl} />
       <Data stars={stargazersCount} forks={forksCount} reviews={reviewCount} rating={ratingAverage} />
     </View>
