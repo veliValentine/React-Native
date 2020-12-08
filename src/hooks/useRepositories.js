@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+//import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { GET_REPOSITORIES } from '../graphql/queries';
 
-const useRepositories = () => {
+/*const useRepositories = () => {
   const [repositories, setRepositories] = useState();
 
   const { data, loading } = useQuery(GET_REPOSITORIES, {
@@ -24,6 +24,14 @@ const useRepositories = () => {
   }, [loading]);
 
   return { repositories, loading, refetch: fetchRepositories };
+};*/
+
+const useRepositories = () => {
+  const { data, ...result } = useQuery(GET_REPOSITORIES, {
+    fetchPolicy: 'cache-and-network',
+  });
+
+  return { repositories: data ? data.repositories : undefined, ...result };
 };
 
 export default useRepositories;

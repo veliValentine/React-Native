@@ -1,3 +1,9 @@
+import React from 'react';
+import { render } from '@testing-library/react-native';
+import { RepositoryListContainer } from '../components/RepositoryList';
+
+import formatInThousands from '../utils/formatInThousands';
+
 describe('RepositoryList', () => {
   describe('RepositoryListContainer', () => {
     it('renders repository information correctly', () => {
@@ -43,9 +49,27 @@ describe('RepositoryList', () => {
           },
         ],
       };
-
       // Add your test code here
-      expect(1).toBe(1);
+      const { getAllByTestId } = render(<RepositoryListContainer repositories={repositories} />);
+      //debug();
+      const names = getAllByTestId('fullName');
+      const descriptions = getAllByTestId('description');
+      const language = getAllByTestId('language');
+      const stars = getAllByTestId('starsCount');
+      const forks = getAllByTestId('forksCount');
+      const ratings = getAllByTestId('ratingCount');
+      const reviews = getAllByTestId('reviewsCount');
+
+      expect(names.length + descriptions.length + language.length + stars.length + forks.length + ratings.length + reviews.length).toBe(14);
+      for (let i = 0; i < names.length; i++) {
+        expect(names[i]).toHaveTextContent(repositories.edges[i].node.fullName);
+        expect(descriptions[i]).toHaveTextContent(repositories.edges[i].node.description);
+        expect(language[i]).toHaveTextContent(repositories.edges[i].node.language);
+        expect(stars[i]).toHaveTextContent(formatInThousands(repositories.edges[i].node.stargazersCount));
+        expect(forks[i]).toHaveTextContent(formatInThousands(repositories.edges[i].node.forksCount));
+        expect(ratings[i]).toHaveTextContent(formatInThousands(repositories.edges[i].node.ratingAverage));
+        expect(reviews[i]).toHaveTextContent(formatInThousands(repositories.edges[i].node.reviewCount));
+      }
     });
   });
 });
