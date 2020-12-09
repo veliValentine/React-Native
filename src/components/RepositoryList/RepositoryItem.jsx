@@ -102,17 +102,11 @@ const RepositoryItem = ({ repository, link }) => {
     url,
   } = repository;
 
-  const onPress = () => {
-    if (!link) {
-      history.push(`/${id}`);
-    }
-  };
-
   const onPressGithub = () => Linking.openURL(url);
 
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPress={() => history.push(`/${id}`)}
       activeOpacity={link ? 1 : 0.5}
     >
       <View style={styles.container}>

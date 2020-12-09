@@ -1,15 +1,17 @@
 import { gql } from 'apollo-boost';
 
-import { REPOSITORY_DETAIL } from './fragments';
+import { REPOSITORY_DETAIL, REVIEWS_DETAIL } from './fragments';
 
 export const GET_REPOSITORY = gql`
 query repository($id: ID!){
   repository(id: $id){
     ...RepositoryDetails,
+    ...ReviewDetails
     url
   }
 }
 ${REPOSITORY_DETAIL}
+${REVIEWS_DETAIL}
 `;
 
 export const GET_REPOSITORIES = gql`
