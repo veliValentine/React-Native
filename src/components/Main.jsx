@@ -8,10 +8,11 @@ import theme from '../theme';
 import SignIn from './SignIn';
 import MaterialMain from './MaterialExamples';
 import SingOut from './SingOut';
+import Repository from './Repository';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.main.background,
+    backgroundColor: theme.colors.mainBackground,
     flexGrow: 1,
     flexShrink: 1,
   },
@@ -22,9 +23,6 @@ const Main = () => {
     <View style={styles.container}>
       <AppBar />
       <Switch>
-        <Route path='/' exact>
-          <RepositoryList />
-        </Route>
         <Route path='/singIn'>
           <SignIn />
         </Route>
@@ -33,6 +31,12 @@ const Main = () => {
         </Route>
         <Route path='/material'>
           <MaterialMain />
+        </Route>
+        <Route path='/:id'>
+          <Repository />
+        </Route>
+        <Route path='/'>
+          <RepositoryList />
         </Route>
         <Redirect to='/' />
       </Switch>

@@ -1,12 +1,15 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import Text from '../Text';
-import theme from '../../theme';
 
 const styles = StyleSheet.create({
   text: {
-    color: theme.appBarTab.textColor,
-    padding: 10
+    paddingHorizontal: 15,
+    paddingVertical: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white'
   }
 });
 

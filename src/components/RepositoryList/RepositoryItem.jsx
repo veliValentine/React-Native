@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 
 import theme from '../../theme';
 import Text from '../Text';
 import formatInThousands from '../../utils/formatInThousands';
+import { useHistory } from 'react-router-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +26,17 @@ const styles = StyleSheet.create({
   contentContainer: {
     flexGrow: 1,
     flexShrink: 1,
+  },
+  linkContainer: {
+    backgroundColor: theme.colors.primary,
+    marginTop: 5,
+    padding: 15,
+    borderRadius: theme.roundness,
+  },
+  linkText: {
+    fontWeight: 'bold',
+    color: 'white',
+    alignSelf: 'center'
   },
   nameText: {
     marginBottom: 5,
@@ -75,58 +87,83 @@ const CountItem = ({ label, count }) => {
   );
 };
 
-const RepositoryItem = ({ repository }) => {
+const RepositoryItem = ({ repository, link }) => {
+  const history = useHistory();
   const {
-    fullName,
     description,
+    fullName,
     language,
     forksCount,
     stargazersCount,
     ratingAverage,
     reviewCount,
     ownerAvatarUrl,
+    id,
+    url,
   } = repository;
 
+  const onPress = () => {
+    if (!link) {
+      history.push(`/${id}`);
+    }
+  };
+
+  const onPressGithub = () => Linking.openURL(url);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.topContainer}>
-        <View style={styles.avatarContainer}>
-          <Image source={{ uri: ownerAvatarUrl }} style={styles.avatar} />
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={link ? 1 : 0.5}
+    >
+      <View style={styles.container}>
+        <View style={styles.topContainer}>
+          <View style={styles.avatarContainer}>
+            <Image source={{ uri: ownerAvatarUrl }} style={styles.avatar} />
+          </View>
+          <View style={styles.contentContainer}>
+            <Text
+              style={styles.nameText}
+              fontWeight="bold"
+              fontSize="subheading"
+              numberOfLines={1}
+              testID="fullName"
+            >
+              {fullName}
+            </Text>
+            <Text
+              style={styles.descriptionText}
+              color="textSecondary"
+              testID="description"
+            >
+              {description}
+            </Text>
+            {language ? (
+              <View style={styles.languageContainer}>
+                <Text
+                  style={styles.languageText}
+                  testID="language"
+                >{language}</Text>
+              </View>
+            ) : null}
+          </View>
         </View>
-        <View style={styles.contentContainer}>
-          <Text
-            style={styles.nameText}
-            fontWeight="bold"
-            fontSize="subheading"
-            numberOfLines={1}
-            testID="fullName"
-          >
-            {fullName}
-          </Text>
-          <Text
-            style={styles.descriptionText}
-            color="textSecondary"
-            testID="description"
-          >
-            {description}
-          </Text>
-          {language ? (
-            <View style={styles.languageContainer}>
-              <Text
-                style={styles.languageText}
-                testID="language"
-              >{language}</Text>
-            </View>
-          ) : null}
+        <View style={styles.bottomContainer}>
+          <CountItem count={stargazersCount} label="Stars" />
+          <CountItem count={forksCount} label="Forks" />
+          <CountItem count={reviewCount} label="Reviews" />
+          <CountItem count={ratingAverage} label="Rating" />
         </View>
+        {!link ? null :
+          <View style={styles.linkContainer}>
+            <TouchableOpacity onPress={onPressGithub}>
+              <Text style={styles.linkText} >
+                Open in GitHub
+              </Text>
+            </TouchableOpacity>
+          </View>
+        }
       </View>
-      <View style={styles.bottomContainer}>
-        <CountItem count={stargazersCount} label="Stars" />
-        <CountItem count={forksCount} label="Forks" />
-        <CountItem count={reviewCount} label="Reviews" />
-        <CountItem count={ratingAverage} label="Rating" />
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

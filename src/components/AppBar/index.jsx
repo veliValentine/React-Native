@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
   flexContainer: {
     //flexDirection: 'column',
     //justifyContent: 'flex-start',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: theme.appBar.background,
+    marginTop: Constants.statusBarHeight,
+    backgroundColor: theme.colors.appBarBackground,
   },
   flexContainerTabs: {
     flexDirection: 'row',

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   errorText: {
     marginTop: 5,
     marginBottom: 10,
-    color: theme.error.color,
+    color: theme.colors.error
   },
 });
 
