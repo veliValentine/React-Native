@@ -31,9 +31,14 @@ const AppBar = () => {
               <AppBarTab>Repositories</AppBarTab>
             </Link>
             {authObj ?
-              < Link to='/singOut' component={TouchableOpacity}>
-                <AppBarTab>Sing out</AppBarTab>
-              </Link>
+              <>
+                <Link to='/createReview' component={TouchableOpacity}>
+                  <AppBarTab>Create a review</AppBarTab>
+                </Link>
+                < Link to='/singOut' component={TouchableOpacity}>
+                  <AppBarTab>Sing out</AppBarTab>
+                </Link>
+              </>
               :
               < Link to='/singIn' component={TouchableOpacity}>
                 <AppBarTab>Sing in</AppBarTab>

@@ -83,10 +83,10 @@ const SignIn = () => {
   const onSubmit = async (values) => {
     const { username, password } = values;
     try {
-      const { data } = await singIn({ username, password });
-      console.log(data);
+      await singIn({ username, password });
       history.push('/');
     } catch (e) {
+      console.log('Error in SingIn.jsx 89');
       if (e instanceof Error) {
         console.log(e.message);
       } else {

@@ -9,6 +9,7 @@ import SignIn from './SignIn';
 import MaterialMain from './MaterialExamples';
 import SingOut from './SingOut';
 import Repository from './Repository';
+import Review from './Review';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,6 +32,9 @@ const Main = () => {
         </Route>
         <Route path='/material'>
           <MaterialMain />
+        </Route>
+        <Route path='/createReview'>
+          <Review />
         </Route>
         <Route path='/:id'>
           <Repository />

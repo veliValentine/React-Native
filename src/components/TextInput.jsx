@@ -11,7 +11,7 @@ const TextInput = ({ style, error, ...props }) => {
   if (error) {
     style = {
       ...style,
-      borderColor: theme.error.color
+      borderColor: theme.colors.error
     };
   }
   const TextInputStyle = [style];
