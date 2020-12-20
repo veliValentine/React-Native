@@ -40,9 +40,14 @@ const AppBar = () => {
                 </Link>
               </>
               :
-              < Link to='/singIn' component={TouchableOpacity}>
-                <AppBarTab>Sing in</AppBarTab>
-              </Link>
+              <>
+                <Link to='/singIn' component={TouchableOpacity}>
+                  <AppBarTab>Sing in</AppBarTab>
+                </Link>
+                <Link to='/singUp' component={TouchableOpacity}>
+                  <AppBarTab>Sing up</AppBarTab>
+                </Link>
+              </>
             }
             <Link to='/material' component={TouchableOpacity}>
               <AppBarTab>Material</AppBarTab>

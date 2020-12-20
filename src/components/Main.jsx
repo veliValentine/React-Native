@@ -10,6 +10,7 @@ import MaterialMain from './MaterialExamples';
 import SingOut from './SingOut';
 import Repository from './Repository';
 import Review from './Review';
+import SingUp from './SingUp';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +27,9 @@ const Main = () => {
       <Switch>
         <Route path='/singIn'>
           <SignIn />
+        </Route>
+        <Route path='/singUp'>
+          <SingUp />
         </Route>
         <Route path='/singOut'>
           <SingOut />
