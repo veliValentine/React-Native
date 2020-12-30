@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 
 import useRepositories from '../../hooks/useRepositories';
+import { useDebounce } from 'use-debounce/lib';
 
 import RepositoryItem from './RepositoryItem';
 import Text from '../Text';
 import { Button, Divider, Menu } from 'react-native-paper';
+import TextInput from '../TextInput';
 
 
 const styles = StyleSheet.create({
@@ -15,12 +17,17 @@ const styles = StyleSheet.create({
   listHeader: {
     padding: 10,
   },
+  searchContainer: {
+    backgroundColor: 'white',
+    color: 'black',
+    padding: 10
+  },
 });
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const ListHeader = ({ setSort: setSortArray }) => {
-  const [sort, setSort] = setSortArray;
+const SortList = ({ sortItem }) => {
+  const [sort, setSort] = sortItem;
   const [visible, setVisible] = useState(false);
 
   const openMenu = () => setVisible(true);
@@ -31,7 +38,6 @@ const ListHeader = ({ setSort: setSortArray }) => {
     setSort(value);
     closeMenu();
   };
-
   return (
     <Menu
       visible={visible}
@@ -48,7 +54,26 @@ const ListHeader = ({ setSort: setSortArray }) => {
   );
 };
 
-export const RepositoryListContainer = ({ repositories, setSort }) => {
+const SearchRepository = ({ searchValueItem }) => {
+  const [text, setText] = useState('');
+  const [value] = useDebounce(text, 500);
+  const [, setSearchValue] = searchValueItem;
+
+  useEffect(() => {
+    setSearchValue(value);
+  }, [value]);
+
+  return (
+    <View style={styles.searchContainer}>
+      <TextInput
+        placeholder={'Search repository'}
+        onChangeText={t => setText(t)}
+      />
+    </View>
+  );
+};
+
+export const RepositoryListContainer = ({ repositories, sortItem, searchValueItem }) => {
 
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
@@ -61,7 +86,12 @@ export const RepositoryListContainer = ({ repositories, setSort }) => {
       renderItem={({ item }) => <RepositoryItem repository={item} />}
       keyExtractor={item => item.id}
       testID="flatList"
-      ListHeaderComponent={<ListHeader setSort={setSort} />}
+      ListHeaderComponent={
+        <View>
+          <SearchRepository searchValueItem={searchValueItem} />
+          <SortList sortItem={sortItem} />
+        </View>
+      }
       ListHeaderComponentStyle={styles.listHeader}
     />
   );
@@ -69,9 +99,16 @@ export const RepositoryListContainer = ({ repositories, setSort }) => {
 
 const RepositoryList = () => {
   const [sort, setSort] = useState('Latest repositories');
-  const { repositories } = useRepositories(sort);
+  const [searchValue, setSearchValue] = useState('');
+  const { repositories } = useRepositories(sort, searchValue);
 
-  return <RepositoryListContainer repositories={repositories} setSort={[sort, setSort]} />;
+  return (
+    <RepositoryListContainer
+      repositories={repositories}
+      sortItem={[sort, setSort]}
+      searchValueItem={[searchValue, setSearchValue]}
+    />
+  );
 };
 
 export default RepositoryList;

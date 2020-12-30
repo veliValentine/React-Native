@@ -3,10 +3,12 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { GET_REPOSITORIES } from '../graphql/queries';
 
-const useRepositories = (order) => {
+const useRepositories = (order, searchKeyword) => {
+  console.log('useRepositories');
   const variables = {
     orderDirection: 'DESC',
-    orderBy: 'CREATED_AT'
+    orderBy: 'CREATED_AT',
+    searchKeyword: searchKeyword ? searchKeyword: ''
   };
 
   switch (order) {

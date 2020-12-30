@@ -15,8 +15,12 @@ ${REVIEWS_DETAIL}
 `;
 
 export const GET_REPOSITORIES = gql`
-query repositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection){
-  repositories(orderBy: $orderBy, orderDirection: $orderDirection){
+query repositories(
+  $orderBy: AllRepositoriesOrderBy,
+  $orderDirection: OrderDirection
+  $searchKeyword: String
+){
+  repositories(orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword){
     edges{
       node{
         ...RepositoryDetails
