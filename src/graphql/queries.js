@@ -3,28 +3,58 @@ import { gql } from 'apollo-boost';
 import { REPOSITORY_DETAIL, REVIEWS_DETAIL } from './fragments';
 
 export const GET_REPOSITORY = gql`
-query repository($id: ID!){
+query repository(
+  $id: ID!
+  $first: Int
+  $after: String
+){
   repository(id: $id){
     ...RepositoryDetails,
-    ...ReviewDetails
     url
+    reviews(first: $first, after: $after){
+      edges {
+        node {
+          ...ReviewDetails
+        }
+        cursor
+      }
+      pageInfo {
+        endCursor
+        startCursor
+        totalCount
+        hasNextPage
+      }
+    }
   }
 }
 ${REPOSITORY_DETAIL}
 ${REVIEWS_DETAIL}
 `;
 
+
 export const GET_REPOSITORIES = gql`
 query repositories(
   $orderBy: AllRepositoriesOrderBy,
-  $orderDirection: OrderDirection
-  $searchKeyword: String
+  $orderDirection: OrderDirection,
+  $searchKeyword: String,
+  $after: String,
+  $first: Int
 ){
-  repositories(orderBy: $orderBy, orderDirection: $orderDirection, searchKeyword: $searchKeyword){
+  repositories(
+    orderBy: $orderBy,
+    orderDirection: $orderDirection,
+    searchKeyword: $searchKeyword,
+    after: $after,
+    first: $first
+  ){
     edges{
       node{
         ...RepositoryDetails
       }
+    }
+    pageInfo{
+      hasNextPage,
+      endCursor
     }
   }
 }

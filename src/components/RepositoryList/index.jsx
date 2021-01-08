@@ -34,10 +34,11 @@ const SortList = ({ sortItem }) => {
 
   const closeMenu = () => setVisible(false);
 
-  const changeSort = (value) => {
+  const changeSort = (value) => () => {
     setSort(value);
     closeMenu();
   };
+
   return (
     <Menu
       visible={visible}
@@ -45,9 +46,9 @@ const SortList = ({ sortItem }) => {
       anchor={<Button onPress={openMenu}>{sort}</Button>}
     >
       <Text style={{ padding: 5 }}>Select an item...</Text>
-      <Menu.Item onPress={() => changeSort('Latest repositories')} title="Latest repositories" />
-      <Menu.Item onPress={() => changeSort('Highest rated repositories')} title="Highest rated repositories" />
-      <Menu.Item onPress={() => changeSort('Lowest rated repositories')} title="Lowest rated repositories" />
+      <Menu.Item onPress={changeSort('Latest repositories')} title="Latest repositories" />
+      <Menu.Item onPress={changeSort('Highest rated repositories')} title="Highest rated repositories" />
+      <Menu.Item onPress={changeSort('Lowest rated repositories')} title="Lowest rated repositories" />
       <Divider />
       <Menu.Item onPress={() => setVisible(false)} title="Close" />
     </Menu>
@@ -73,7 +74,7 @@ const SearchRepository = ({ searchValueItem }) => {
   );
 };
 
-export const RepositoryListContainer = ({ repositories, sortItem, searchValueItem }) => {
+export const RepositoryListContainer = ({ repositories, sortItem, searchValueItem, onEndReached }) => {
 
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
@@ -93,6 +94,8 @@ export const RepositoryListContainer = ({ repositories, sortItem, searchValueIte
         </View>
       }
       ListHeaderComponentStyle={styles.listHeader}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.5}
     />
   );
 };
@@ -100,13 +103,18 @@ export const RepositoryListContainer = ({ repositories, sortItem, searchValueIte
 const RepositoryList = () => {
   const [sort, setSort] = useState('Latest repositories');
   const [searchValue, setSearchValue] = useState('');
-  const { repositories } = useRepositories(sort, searchValue);
+  const { repositories, fetchMore } = useRepositories(sort, searchValue,8);
+
+  const onEndReached = () => {
+    fetchMore();
+  };
 
   return (
     <RepositoryListContainer
       repositories={repositories}
       sortItem={[sort, setSort]}
       searchValueItem={[searchValue, setSearchValue]}
+      onEndReached={onEndReached}
     />
   );
 };
