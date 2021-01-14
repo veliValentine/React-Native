@@ -11,6 +11,7 @@ import SingOut from './SingOut';
 import Repository from './Repository';
 import Review from './Review';
 import SingUp from './SingUp';
+import UserReviews from './UserReviews';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,6 +40,9 @@ const Main = () => {
         </Route>
         <Route path='/createReview'>
           <Review />
+        </Route>
+        <Route path='/myReviews'>
+          <UserReviews />
         </Route>
         <Route path='/:id'>
           <Repository />

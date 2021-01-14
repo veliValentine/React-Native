@@ -2,9 +2,9 @@ import { useQuery } from '@apollo/react-hooks';
 import { useState, useEffect } from 'react';
 import { AUTHORIZED_USER } from '../graphql/queries';
 
-const useAuthorize = () => {
+const useAuthorize = (variables) => {
   const [authObj, setAuthObj] = useState();
-  const { data, loading } = useQuery(AUTHORIZED_USER);
+  const { data, loading } = useQuery(AUTHORIZED_USER, { variables });
 
   const getAuthObj = () => {
     if (data) {
@@ -18,6 +18,6 @@ const useAuthorize = () => {
     getAuthObj();
   }, [loading, data]);
 
-  return {authObj, loading, refetch: getAuthObj};
+  return { authObj, loading, refetch: getAuthObj };
 };
 export default useAuthorize;

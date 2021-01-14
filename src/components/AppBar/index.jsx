@@ -35,6 +35,9 @@ const AppBar = () => {
                 <Link to='/createReview' component={TouchableOpacity}>
                   <AppBarTab>Create a review</AppBarTab>
                 </Link>
+                <Link to='/myReviews' component={TouchableOpacity}>
+                  <AppBarTab>My reviews</AppBarTab>
+                </Link>
                 < Link to='/singOut' component={TouchableOpacity}>
                   <AppBarTab>Sing out</AppBarTab>
                 </Link>
@@ -49,9 +52,6 @@ const AppBar = () => {
                 </Link>
               </>
             }
-            <Link to='/material' component={TouchableOpacity}>
-              <AppBarTab>Material</AppBarTab>
-            </Link>
           </View>
         </TouchableWithoutFeedback>
       </ScrollView>
