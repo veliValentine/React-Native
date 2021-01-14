@@ -64,21 +64,21 @@ const ReviewItem = ({ review }) => {
 
   return (
     <View style={styles.container}>
-        <View style={styles.ratingContainer} >
-          <Text style={styles.rating}>{rating}</Text>
-        </View>
-        <View style={styles.contentContainer} >
-          <Text style={styles.username} >{username}</Text>
-          <Text style={styles.date} >{date}</Text>
-          <Text style={styles.text}>{text}</Text>
-        </View>
+      <View style={styles.ratingContainer} >
+        <Text style={styles.rating}>{rating}</Text>
+      </View>
+      <View style={styles.contentContainer} >
+        <Text style={styles.username} >{username}</Text>
+        <Text style={styles.date} >{date}</Text>
+        <Text style={styles.text}>{text}</Text>
+      </View>
     </View>
   );
 };
 
 const Repository = () => {
   const { id } = useParams();
-  const { repository } = useRepository(id);
+  const { repository, fetchMore } = useRepository(id, 5);
 
   if (!repository) {
     return null;
@@ -86,12 +86,17 @@ const Repository = () => {
 
   const reviews = repository.reviews.edges.map(edge => edge.node);
 
+  const onEndReached = () => {
+    fetchMore();
+  };
+
   return (
     <FlatList
       data={reviews}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={({ id }) => id}
       ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+      onEndReached={onEndReached}
     />
   );
 };
